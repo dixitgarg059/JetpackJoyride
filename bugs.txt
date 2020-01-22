@@ -1,0 +1,29 @@
+-speed booster not working
+-obstacle coinciding with ground
+** figlet used
+-get_x not used
+-no coins are there
+-no magnets are there
+number of speed booster is high
+-when the dragon came , objstacles are there
+-mando is able to skip dragon
+-dragon does not disappear after being defeated
+-left key is not working properly(increase its speed)
+
+
+
+extras : 
+print you won by ascii art
+magnet color
+
+
+
+important:
+**do inheritance
+-make clouds
+-mando should not collect clouds
+-make the color of horizontal line to be yellow
+** README
+** gravity 
+-speed booster not working properly
+-speed booster must not be at the end of the game

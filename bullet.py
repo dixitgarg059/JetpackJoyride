@@ -1,40 +1,44 @@
 class Bullet:
 	def __init__(self,i,j):
-		self.__i=i
-		self.__j=j
-		self.__mat=[['X']]
-	def detect_colision(self,obj):	
+		self._i=i             # protected variables to enable inheritance
+		self._j=j
+		self._mat=[['X']]
+	def detect_colision(self,obj,st0):	
 		ans=0
+		grid=obj.get_grid()
+		base=obj.get_base()
 		for i in range(0,1):
 			for j in range(-3,3):
-				if obj.grid[i+self.__i][j+self.__j] !=' ' and obj.grid[i+self.__i][j+self.__j]!='*' and obj.grid[i+self.__i][j+self.__j]!='o' and obj.grid[i+self.__i][j+self.__j]!='@' and obj.grid[i+self.__i][j+self.__j]!='#':
+				if grid[i+self._i][j+self._j+st0] !=' ' and grid[i+self._i][j+self._j+st0]!='*' and grid[i+self._i][j+self._j+st0]!='o' and grid[i+self._i][j+self._j+st0]!='@' and grid[i+self._i][j+self._j+st0]!='#':
 					ans=1
 		for i in range(0,1):
 			for j in range(-3,3):
-				if obj.grid[i+self.__i][j+self.__j] !=' ' and obj.grid[i+self.__i][j+self.__j]!='*' and obj.grid[i+self.__i][j+self.__j]!='o' and obj.grid[i+self.__i][j+self.__j]!='@' and obj.grid[i+self.__i][j+self.__j]!='#':
-					if len(obj.base[i+self.__i][j+self.__j]) == 1:
-						obj.base[i+self.__i][j+self.__j][0].destroy(obj)
+				if grid[i+self._i][j+self._j+st0] !=' ' and grid[i+self._i][j+self._j+st0]!='*' and grid[i+self._i][j+self._j+st0]!='o' and grid[i+self._i][j+self._j+st0]!='@' and grid[i+self._i][j+self._j+st0]!='#':
+					if len(base[i+self._i][j+self._j+st0]) == 1:
+						base[i+self._i][j+self._j+st0][0].destroy(obj)
 
 
 		return ans
-	def move_right(self,inc,st,board):
-		# self.__timeremaining=self.__timeremaining-1
-		if self.__j +5+2 < st+201:
-			self.__j=self.__j+5
+	def move_right(self,inc,st,st0):
+		if self._j +5+2 +st0 < st+201:
+			self._j=self._j+5
 			return 1
 		else:
 			return 0
 
-	def add_to_board(self,obj,st):
+	def add_to_board(self,obj,st=0,st0=0):
+		grid=obj.get_grid()
 		leave=['*','#','@']
-		while obj.grid[self.__i][self.__j] in leave:
-			self.__j=self.__j+1
-		
-		obj.grid[self.__i][self.__j]='X'
+		while grid[self._i][self._j] in leave:
+			self._j=self._j+1
+		for i in range(0,len(self._mat)):
+			for j in range(0,len(self._mat[i])):
+				obj.set_grid(self._i+i,self._j+j+st0+st,self._mat[i][j])
 
-	def remove_from_board(self,obj):
-		for i in range(0,1):
-			for j in range(0,1):
-				obj.grid[self.__i+i][self.__j+j]=' '
+	def remove_from_board(self,obj,st=0,st0=0):
+		grid=obj.get_grid()
+		for i in range(0,len(self._mat)):
+			for j in range(0,len(self._mat[i])):
+				obj.set_grid(self._i+i,self._j+st+j+st0,' ')
 
 
